@@ -1,4 +1,5 @@
 import os
+import sys
 from threading import Thread, Event
 from time import sleep
 
@@ -13,8 +14,10 @@ event = Event()
 
 
 def notify(string: str):
-    cmd = 'notify-send \"' + string + '\"'
-    os.system(cmd)
+    #todo replace with tkinter msgbox
+    if sys.platform.startswith("linux"):
+        cmd = 'notify-send \"' + string + '\"'
+        os.system(cmd)
 
 
 def click(pos: tuple, amount=1):
@@ -23,8 +26,8 @@ def click(pos: tuple, amount=1):
 
 
 def abort():
-    global event
     event.set()
+    listener.stop()
     exit(0)
 
 
