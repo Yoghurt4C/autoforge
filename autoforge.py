@@ -34,7 +34,8 @@ def savePos():
     notify("Item at " + str(cursor) + " will be clicked.")
 
 
-def consumeTome(stop: Event):
+def consumeTome():
+    global cursor
     click(cursor, 2)
     sleep(0.25)
     click((947, 590))
