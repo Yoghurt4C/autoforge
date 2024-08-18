@@ -35,7 +35,6 @@ def savePos():
 
 
 def consumeTome():
-    global cursor
     click(cursor, 2)
     sleep(0.25)
     click((947, 590))
@@ -70,9 +69,7 @@ def loop(stop: Event, method=None):
 
 def startThread(method=None, needsCursor=True):
     global toggle
-    global cursor
     global thread
-    global event
     if needsCursor is True and cursor == (0, 0):
         notify('Press CTRL+Q over an item slot before activating loop functions.')
     else:
