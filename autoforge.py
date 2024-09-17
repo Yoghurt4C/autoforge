@@ -83,12 +83,24 @@ def startThread(method=None, needsCursor=True):
         else:
             event.set()
 
-
-with GlobalHotKeys({
+keys = {
     '<ctrl>+p': abort,
     '<ctrl>+q': savePos,
     '<alt>+[': lambda: startThread(consumeTome),
     '<alt>+]': lambda: startThread(selectableContainer),
     '<alt>+k': lambda: startThread(autoforge, False)
-}) as listener:
+}
+
+hint = {
+    'Ctrl + P': 'Exit Autoforge',
+    'Ctrl + Q': 'Save Cursor Position',
+    'Alt + [': 'Consume Tomes of Knowledge (Requires saved cursor pos.)',
+    'Alt + ]': 'Consume Selectable Containers (Requires saved cursor pos.)',
+    'Alt + K': 'Automatic Mystic Forge Crafting & Refilling'
+}
+
+for e in hint:
+    print(e+": "+hint[e])
+
+with GlobalHotKeys(keys) as listener:
     listener.join()

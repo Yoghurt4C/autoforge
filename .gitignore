@@ -1,6 +1,7 @@
 # created by virtualenv automatically
 .idea/
 bin/
+include/
 lib/
 autoforge.iml
 pyvenv.cfg
