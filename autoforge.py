@@ -55,6 +55,13 @@ def selectableContainer():
     sleep(0.025)
 
 
+def firework():
+    sleep(0.65)
+    click(cursor, 2)
+    sleep(0.45)
+    click((689, 1035))
+
+
 def autoforge():
     click((1019, 694))
     sleep(0.1)
@@ -88,7 +95,8 @@ keys = {
     '<ctrl>+q': savePos,
     '<alt>+[': lambda: startThread(consumeTome),
     '<alt>+]': lambda: startThread(selectableContainer),
-    '<alt>+k': lambda: startThread(autoforge, False)
+    '<alt>+k': lambda: startThread(autoforge, False),
+    '<alt>+f': lambda: startThread(firework)
 }
 
 hint = {
@@ -96,7 +104,8 @@ hint = {
     'Ctrl + Q': 'Save Cursor Position',
     'Alt + [': 'Consume Tomes of Knowledge (Requires saved cursor pos.)',
     'Alt + ]': 'Consume Selectable Containers (Requires saved cursor pos.)',
-    'Alt + K': 'Automatic Mystic Forge Crafting & Refilling'
+    'Alt + K': 'Automatic Mystic Forge Crafting & Refilling',
+    'Alt + F': 'Fireworks'
 }
 
 for e in hint:

@@ -5,7 +5,7 @@ autoforge.ahk is the proverbial version and requires [AutoHotkey v2.0](https://w
 autoforge.py requires [Python >=3.4](https://www.python.org/) and [pynput](https://pypi.org/project/pynput/)
 
 coming in the distant future:
-* ~~automatic venv creation~~
+* ~~automatic venv creation~~ download this repository and run **autoforge.sh** to set everything up automagically (you still need Python)
 * non-1080p resolution support
 * simple gui/systray icon for the gormless (me)
 * more functions to cover shit that annoys me
