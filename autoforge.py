@@ -3,10 +3,13 @@ import sys
 from threading import Thread, Event
 from time import sleep
 
+import pynput.keyboard
 from pynput.keyboard import GlobalHotKeys
 from pynput.mouse import Button, Controller
 
 mouse = Controller()
+keeb = pynput.keyboard.Controller()
+key = pynput.keyboard.Key
 toggle = False
 cursor = (0, 0)
 thread = None
@@ -14,7 +17,7 @@ event = Event()
 
 
 def notify(string: str):
-    #todo replace with tkinter msgbox
+    # todo replace with tkinter msgbox
     if sys.platform.startswith("linux"):
         cmd = 'notify-send \"' + string + '\"'
         os.system(cmd)
@@ -69,12 +72,30 @@ def autoforge():
     sleep(2.15)
 
 
+def autoclick():
+    click(mouse.position, amount=2)
+    sleep(0.05)
+
+
 def loop(stop: Event, method=None):
     while True:
         if stop.is_set():
             stop.clear()
             break
         method()
+
+
+from pynput.mouse import Listener
+
+
+def jumproll(x: int, y: int, button: Button, pressed: bool):
+    if pressed and button == button.button9:
+        keeb.tap(key.space)
+        keeb.tap('v')
+
+
+meece = Listener(on_click=jumproll)
+meece.start()
 
 
 def startThread(method=None, needsCursor=True):
@@ -90,13 +111,15 @@ def startThread(method=None, needsCursor=True):
         else:
             event.set()
 
+
 keys = {
     '<ctrl>+p': abort,
     '<ctrl>+q': savePos,
     '<alt>+[': lambda: startThread(consumeTome),
     '<alt>+]': lambda: startThread(selectableContainer),
     '<alt>+k': lambda: startThread(autoforge, False),
-    '<alt>+f': lambda: startThread(firework)
+    '<alt>+f': lambda: startThread(firework),
+    '<alt>+y': lambda: startThread(autoclick, False)
 }
 
 hint = {
@@ -105,11 +128,13 @@ hint = {
     'Alt + [': 'Consume Tomes of Knowledge (Requires saved cursor pos.)',
     'Alt + ]': 'Consume Selectable Containers (Requires saved cursor pos.)',
     'Alt + K': 'Automatic Mystic Forge Crafting & Refilling',
-    'Alt + F': 'Fireworks'
+    'Alt + F': 'Spam Dragon Bash Fireworks (Requires saved cursor pos.)',
+    'Alt + Y': 'Autoclick (Current cursor pos.)',
+    'MB5': 'Roll-jump (For SAB)'
 }
 
 for e in hint:
-    print(e+": "+hint[e])
+    print(e + ": " + hint[e])
 
 with GlobalHotKeys(keys) as listener:
     listener.join()
